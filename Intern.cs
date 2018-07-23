@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,15 @@ namespace AccesaEmployee
 			: base(name, EmployeePosition.Intern, capacity)
 		{
 		}
-	}
+        public void Jason()
+        {
+            JObject emp = new JObject();
+            new JProperty("University name", _universityName);
+            new JProperty("Year of Study", _yearOfStudy);
+            new JProperty("Target", _targetPosition);
+
+
+        }
+
+        }
 }
