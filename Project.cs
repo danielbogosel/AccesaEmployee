@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 namespace AccesaEmployee
 {
 	public class Project
-	{
-		private readonly string _name;
+    {
+        public const string XmlName = "Projects";
+        private readonly string _name;
 		private readonly string _description;
 		private DateTime _deadLine;
 		private readonly Dictionary<Employee, float> _team = new Dictionary<Employee, float>();

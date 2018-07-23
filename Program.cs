@@ -21,7 +21,10 @@ namespace AccesaEmployee
 
 			PopulateEmployeeList(officeManagement);
 			officeManagement.DisplayAllEmployees();
-			Console.ReadLine();
+
+            Employee.GenXml();
+
+            Console.ReadLine();
 		}
 
 		private static void PopulateEmployeeList(OfficeManagement officeManagement)
