@@ -8,30 +8,59 @@ using System.Xml;
 
 namespace AccesaEmployee
 {
-    public abstract class Employee
+    [DataContract]
+    public class Employee
     {
-        public const string XmlName = "employees";
-        private readonly string _name;
-        private readonly EmployeePosition _position;
-        private readonly float _capacity;//max number of hours per day
-        private readonly List<string> _hobbies = new List<string>();
+        
+        private string _name;
+        
+        public EmployeePosition _position;
+        
+        private float _capacity;//max number of hours per day
+        
+        private List<string> _hobbies = new List<string>();
 
-        public string Name => _name;
-        public EmployeePosition Position => _position;
-        public float Capacity => _capacity;
-        public List<string> Hobbies => _hobbies;
+        public Employee() { }
+        public Employee(XmlReader r) { ReadXml(r); }
 
-        public IEnumerable<Employee> Employees { get; private set; }
+        public const string XmlName = "employee";
+        public const string XmlHobbies = "hobby";
 
-        public void Jason()
+        public virtual void ReadXml(XmlReader r)
         {
-            JObject emp = new JObject();
-            new JProperty("Name", Name);
-            new JProperty("Capacity", Capacity);
-            new JProperty("Position", Position);
-            foreach (string s in Hobbies)
-            new JProperty("Hobby", s);
+            r.ReadStartElement();
+            _name = r.ReadElementContentAsString("name", "");
+            //_position = (EmployeePosition)Enum.Parse(typeof(EmployeePosition), r.ReadElementContentAsString("position", ""));
+            _capacity = r.ReadElementContentAsFloat("capacity", "");
+            r.ReadStartElement();
+
+            if (r.Name == "Hobbies")
+                while (r.NodeType == XmlNodeType.Element)
+                {
+                    if (r.Name == "Hobbies")
+                        Hobbies.Add(r.ReadElementContentAsString("hobby", ""));
+                }
+            r.ReadEndElement();
+            r.ReadEndElement();
         }
+        public virtual void WriteXml(XmlWriter w)
+        {
+            w.WriteStartElement("employee");
+            w.WriteElementString("name", _name);
+            w.WriteElementString("capacity", _capacity.ToString());
+            w.WriteStartElement("hobbies");
+            foreach (string hobby in _hobbies)
+            {
+                w.WriteElementString("hobby", hobby);
+            }
+            w.WriteEndElement();
+            w.WriteElementString("position", _position.ToString());
+            // w.WriteEndElement();
+        }
+        public string Name { get { return _name; } set { _name = value; } }
+        public EmployeePosition Position { get { return _position; } set { _position = value; } }
+        public float Capacity { get { return _capacity; } set { _capacity = value; } }
+        public List<string> Hobbies => _hobbies;
 
         protected Employee(string name, EmployeePosition position, float capacity)
         {
@@ -47,28 +76,8 @@ namespace AccesaEmployee
             Console.WriteLine($"{_name} ocupa pozitia {_position} si e angajat cu {_capacity} ore pe zi. Lui ii place {sb.ToString()}");
         }
 
-        public void GenXml()
+        private class DataContractAttribute : Attribute
         {
-            using (XmlWriter writer = XmlWriter.Create("employees.xml"))
-            {
-                writer.WriteStartDocument();
-                writer.WriteStartElement("Employees");
-
-                foreach (Employee employee in Employees)
-                {
-                    writer.WriteStartElement("Employee");
-
-                    writer.WriteElementString("Name", employee.Name.ToString());
-                    writer.WriteElementString("Capacity", employee.Capacity.ToString());
-                    writer.WriteElementString("Position", employee.Position.ToString());
-                    writer.WriteElementString("Hobbies", employee.Hobbies.ToString());
-
-                    writer.WriteEndElement();
-                }
-
-                writer.WriteEndElement();
-                writer.WriteEndDocument();
-            }
         }
     }
 }

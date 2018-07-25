@@ -12,3 +12,6 @@ C:\Users\daniel.bogosel\Downloads\AccesaEmployee\AccesaEmployee\obj\Debug\Accesa
 C:\Users\daniel.bogosel\Downloads\AccesaEmployee\AccesaEmployee\obj\Debug\AccesaEmployee.csproj.CoreCompileInputs.cache
 C:\Users\daniel.bogosel\Downloads\AccesaEmployee\AccesaEmployee\obj\Debug\AccesaEmployee.exe
 C:\Users\daniel.bogosel\Downloads\AccesaEmployee\AccesaEmployee\obj\Debug\AccesaEmployee.pdb
+C:\Users\daniel.bogosel\Downloads\AccesaEmployee\AccesaEmployee\bin\Debug\Newtonsoft.Json.dll
+C:\Users\daniel.bogosel\Downloads\AccesaEmployee\AccesaEmployee\bin\Debug\Newtonsoft.Json.xml
+C:\Users\daniel.bogosel\Downloads\AccesaEmployee\AccesaEmployee\obj\Debug\AccesaEmployee.csproj.CopyComplete

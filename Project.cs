@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace AccesaEmployee
 {
@@ -26,7 +27,11 @@ namespace AccesaEmployee
 			_deadLine = deadLine;
 		}
 
-		public void DisplayInfo()
+        public Project(XmlReader r)
+        {
+        }
+
+        public void DisplayInfo()
 		{
 			Console.WriteLine($"Project {_name} that is valid until {_deadLine.ToShortDateString()} is about {_description} and has the following team members:");
 			var sb =new StringBuilder();
@@ -49,5 +54,10 @@ namespace AccesaEmployee
 			if (_team.ContainsKey(employee))
 				_team.Remove(employee);
 		}
-	}
+
+        internal void WriteXml(XmlWriter w)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
